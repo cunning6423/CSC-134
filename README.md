@@ -14,3 +14,5 @@ Jack
 Satrou gojo
 Lead guitar 
 Indie rock
+
+Make sure to place the Charcters, Genre, Instruments in the right order and place.
