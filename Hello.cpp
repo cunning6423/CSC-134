@@ -16,3 +16,9 @@ int main ()
     return 0;
     /* To my current knowledge cout will allow you to print out text.*/
 }
+int calculate ()
+{
+
+}
+
+//end of file
