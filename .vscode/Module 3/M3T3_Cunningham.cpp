@@ -52,12 +52,12 @@ int main() {
             roll2 = (rand() % SIDES);
             reTotal = roll1 + roll2;
         }while (7 != reTotal && point != reTotal);
-            if (point == total)
+            if (point == reTotal)
             {
                 cout << "You got a " << reTotal << endl;
                 cout << "You win! "<< endl;
             }
-            else if (total == 7)
+            else if (7 == reTotal)
             {
                 cout << "You got a " << reTotal << endl;
                 cout << "You lose!" << endl;
