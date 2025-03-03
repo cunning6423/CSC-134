@@ -17,6 +17,8 @@ void saveCharacter();
 int rollDice();
 int rollStat();
 bool askToRepeat();
+void chooseClass();
+int calculateHP(const string& charClass);
 
 int main() {
     // Seed the random number generator
@@ -25,17 +27,29 @@ int main() {
     // Get character details from user
     cout << "Enter character name: ";
     getline(cin, name);
-    cout << "Enter character class: ";
-    getline(cin, charClass);
     
     bool repeat;
     do {
         inputStats();
+        chooseClass();
+        hp = calculateHP(charClass);
         displayCharacter();
         repeat = askToRepeat();
     } while (repeat);
     
     return 0;
+}
+void displayCharacter() {
+    cout << "\nCharacter Stats:\n";
+    cout << "Level: 1" << endl;
+    cout << "Class: " << charClass << endl;
+    cout << "Strength: " << strength << endl;
+    cout << "Dexterity: " << dexterity << endl;
+    cout << "Constitution: " << constitution << endl;
+    cout << "Intelligence: " << intelligence << endl;
+    cout << "Wisdom: " << wisdom << endl;
+    cout << "Charisma: " << charisma << endl;
+    cout << "HP: " << hp << endl;
 }
 int rollDice() {
     return rand() % 6 + 1;
@@ -61,16 +75,24 @@ void inputStats() {
     wisdom = rollStat();
     charisma = rollStat();
 }
-
-void displayCharacter() {
-    cout << "\nCharacter Stats:\n";
-    cout << "Strength: " << strength << endl;
-    cout << "Dexterity: " << dexterity << endl;
-    cout << "Constitution: " << constitution << endl;
-    cout << "Intelligence: " << intelligence << endl;
-    cout << "Wisdom: " << wisdom << endl;
-    cout << "Charisma: " << charisma << endl;
-}
+void chooseClass() {
+    cout << "Choose your character class (e.g., Warrior, Mage, Rogue): ";
+    cin >> charClass;
+    }
+int calculateHP(const string& charClass) {
+        int baseHP = 0;
+        if (charClass == "Warrior") {
+            baseHP = 10;
+        } else if (charClass == "Mage") {
+            baseHP = 6;
+        } else if (charClass == "Rogue") {
+            baseHP = 8;
+        } else {
+            cout << "Unknown class, setting default HP.\n";
+            baseHP = 5;
+        }
+        return baseHP + constitution; // Adjust HP based on constitution modifier
+    }
 void saveCharacter() {
 
 }
