@@ -10,5 +10,5 @@ using namespace std;
 // Ask the user what question you want to a
 int main() 
 {
-
+    string choice;
 }
