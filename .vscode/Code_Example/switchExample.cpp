@@ -9,10 +9,10 @@ cin >> choice;
 switch (choice)
 {
 case  1:
-    cout << "1";
+    cout << "Math";
     break;
 case 2:
-    cout << "2";
+    cout << "Science";
     break;
 
 default:
