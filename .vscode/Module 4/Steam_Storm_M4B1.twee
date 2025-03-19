@@ -1,0 +1,148 @@
+:: StoryTitle
+Steam_Storm_M4B1
+
+
+:: StoryData
+{
+  "ifid": "E4FF07B5-4CFE-431D-92FA-69A280043D81",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Introduction",
+  "zoom": 1
+}
+
+
+:: \ Aviator Description {"position":"300,400","size":"100,100"}
+As a Aviator of the Skylorine Empire your task is to transport those who need to move from island to island, no matter the circumstance.
+
+Tools:
+Decent size Airship
+Clearance to Skylorine Islands
+
+Skills:
+Navigation: (checkbox: 2bind $Navigation,"8")
+Charisma: (checkbox: 2bind $Charisma,"5")
+
+[[Rev the Engine-> Aviator Start]]
+
+
+:: \ Aviator Start {"position":"425,525","size":"100,100"}
+
+
+
+:: \ Reporter Description {"position":"400,50","size":"100,100"}
+As a reporter of the Skylorine Empire, it is your job to keep the people informed of the decision of the kingdom. 
+
+Tools:
+Camera
+Clearance through Security
+
+Skills
+Charisma: (input-box:2bind $Charisma,"=XX=","6")
+Intilgence: (input-box:2bind $Inteligence,"=XX=","5") 
+
+
+[[Clock In-> Reporter Start]]
+
+
+:: \ Reporter Start {"position":"500,175","size":"100,100"}
+You walk into a gaint clock tower. Filled with trinkets and disgarge tech. Clocks ticking, people busling about. Artifers creating new tools with Macinte envoking object into the air. As you watch with spleadnor, you here a giant crash.
+
+You are waiting to question a Cheif Lance about the disapperances in the tower.
+
+[[Wait for Cheif Lance]]
+[[Search the Tower]]
+
+
+:: Character Intro {"position":"250,150","size":"100,100"}
+What are you?
+
+Aviator✈️
+Reporter📸
+Explorer📒
+
+[[Aviator-> Aviator Description]]
+[[Reporter-> Reporter Description]]
+[[Explorer ->Explorer Description]]
+
+
+
+
+:: Explore {"position":"500,725","size":"100,100"}
+You sto
+
+
+:: Explorer Description {"position":"100,300","size":"100,100"}
+As a Explorer of the Skylorine Empire, you speicilze in discovering new land for your people, setting marks in location you've been.
+
+Tools:
+Steam Firearm
+Small Airvessel
+
+Skills:
+Endurance: (checkbox:2bind $Endurance,"6")
+Strength: (checkbox: 2bind $Strength,"5")
+
+
+
+[[Venture forth->Explorer Start]]
+
+
+:: Explorer Start {"position":"50,550","size":"100,100"}
+
+
+
+:: Introduction {"position":"100,0","size":"100,100"}
+Welcome to the world of Tomia.
+
+[[World Details]]
+[[Character Intro]]
+
+
+:: Leave the Tower {"position":"650,475","size":"100,100"}
+You left the tower and went home. Waiting for you next assissgment.
+
+Can't help but wonder what caused that noise.
+
+
+:: Search the Tower {"position":"650,75","size":"100,100"}
+
+
+
+:: Search the tower (at night) {"position":"675,300","size":"100,100"}
+
+
+
+:: Wait Longer {"position":"550,350","size":"100,100"}
+As more time past the building empties and your left alone with your own thoughts.
+You have been ditch me before but never like this, they usually let you know their was a change of plans. Yet you sit there with nothing.
+
+You get up from your chair and you figure its about time you leave.
+
+However, you hear another crash, this time closer, as if the sound are stomping towarded you without remorse.
+
+[[Search the tower (at night)]]
+[[Leave->Leave the Tower]]
+
+
+:: Wait for Cheif Lance {"position":"425,300","size":"100,100"}
+You wait for seeming hours. Curoisty itching the back of you mind as you wonder what caused the noise and why did it happen. You rack you mind over the possiblities. You hear a step and a knock. Seeing no one around you around sit down and to relax.
+"There is no need to worry when it not you job" remember why your here
+
+[[Search the Tower]]
+[[Wait Longer]]
+
+
+:: World Details {"position":"25,150","size":"100,100"}
+This world has been bless with the macinations of steam technology.
+
+Upon discovering Macinate the people of Skylor gain the resource to take to the sky. Lifiting islands to the sky, ship took to the air,now refered as airship. The Skylorines molded Macinate into weapons and technology. Introducin the kingdom as a new world power.
+
+However, power corrupts, Skylorines moved their entire kingdom to the sky and prevented any other from acheive their status of the sky conquors. As they are benevolent the are a destuctive force that crushes any other that challeges them.
+
+You are a citizen of Skylor. What happens now is up to you.... 
+
+
+friend.
+
+[[Character Intro]] 
