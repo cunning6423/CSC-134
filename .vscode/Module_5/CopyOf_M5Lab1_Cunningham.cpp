@@ -87,7 +87,7 @@ void choice_boardtheAirship() {
 //Main menu Pathway
 void choice_jumpofIsland() { 
     cout << "You jump off..." << endl;
-    cout << "You Died...\twhat did you think would happen";
+    cout << "You Died"<< endl;
     cout << "***Unaliving yourself ending(1/)***";
 }
 
@@ -142,10 +142,6 @@ void leavePath_leaveContinue_1(){
     }else if(choice==3){
         leavePath_leaveContinue_2();
     }
-}
-void leavePath_leaveContine_2(){
-  cout <<"You calmly walk by them\tThey let you...";
-  cout <<"***Calm Escapee(4/)***";
 }
 void leavePath_Fight(){
     cout <<"You get riddle with bullets flying faster than the speed of sound." << endl;
