@@ -20,6 +20,7 @@ void airshipPath_Stay();
 void leavePath_leaveContinue_1();
 void leavePath_leaveContinue_2();
 void leavePath_Fight();
+void leavePath_Run();
 
 int main() {
   cout << "M5LAB1 - Choose Your Own Adventure" << endl;
@@ -66,8 +67,7 @@ void main_menu() {
 // now we have to actually write the functions.
 // They go here, after main().
 void choice_boardtheAirship() {
-  cout << "The Captian speaks: \n\"Welcome to the Soaring Bolt.\"" << endl;
-  cout << "It's locked. " << endl;
+  cout << "The Captian speaks: \t\"Welcome to the Soaring Bolt.\"" << endl;
   cout << "Do you:" << endl;
   cout << "1. Jump Off" << endl;
   cout << "2. Try to leave" << endl;
@@ -80,15 +80,15 @@ void choice_boardtheAirship() {
   } else if (2 == choice) {
     choice_attempt_to_leave();
   } else if (3 == choice){
-
+    airshipPath_Stay();
   }
 }
 
 //Main menu Pathway
 void choice_jumpofIsland() { 
     cout << "You jump off..." << endl;
-    cout << "You Died...\twhat did you think would happen";
-    cout << "***Unaliving yourself ending(1/)***";
+    cout << "You Died...\nWhat did you think would happen"<< endl;
+    cout << "***Unaliving yourself ending(1/5)***";
 }
 
 void choice_attempt_to_leave() { 
@@ -103,6 +103,7 @@ void choice_attempt_to_leave() {
     }else if(choice == 2){
         choice_boardtheAirship();
     }
+    cout << endl;
 }
 
 void choice_world_history() {
@@ -122,8 +123,8 @@ void choice_world_history() {
 }
 // PATH WAYS
     //Air Ship Pathway
-void airshipPath_Stay(){cout << "You claimed land for the empire.\nYou get back your freedom.";
-    cout << "\n***Free Man Ending(2/)***"<< endl;
+void airshipPath_Stay(){cout << "You claimed land for the empire.\nYou get back your freedom." << endl;
+    cout << "\n***Free Man Ending(2/5)***"<< endl;
     //ENDING 2
 }
     //Leaving pathway
@@ -143,12 +144,18 @@ void leavePath_leaveContinue_1(){
         leavePath_leaveContinue_2();
     }
 }
-void leavePath_leaveContine_2(){
+void leavePath_leaveContinue_2(){
   cout <<"You calmly walk by them\tThey let you...";
-  cout <<"***Calm Escapee(4/)***";
+  cout <<"***Calm Escapee(4/5)***";
 }
 void leavePath_Fight(){
     cout <<"You get riddle with bullets flying faster than the speed of sound." << endl;
     cout <<"Well that was pretty fast\n"<< endl;
-    cout <<"***Shot faster than sound ending(3/)***";
+    cout <<"***Shot faster than sound ending(3/5)***";
+}
+void leavePath_Run(){
+  cout <<"The guard get scared for your sudden panic..." << endl;
+  cout <<"They fire their steams pistols. You died" <<endl;
+  cout <<"You shouldn't have paniced." << endl;
+  cout <<"***Shot while Escaping(5/5)***";
 }
