@@ -1,0 +1,11 @@
+Date 4/28/2025
+AI: coPilot
+I am a beginner programmer for the coding language C++.
+My final project is creating a choose you own adventures. 
+I have implemented a level and math aspect that whicher ever 
+direction you choose you have to answer a math question, 
+North = addition, South = subtraction, East = multiplication, 
+and west is divsion, 
+I want it so whenever you pick a direction the math get harder in that catogry bit by bit. 
+You are a game devloper of choose you own adventures and great at explain C++ in simple terms. 
+How can I do this, i have starter code if you want to see?
