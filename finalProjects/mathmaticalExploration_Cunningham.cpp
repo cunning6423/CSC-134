@@ -6,18 +6,23 @@ Explore the world free, however the only thing that blocks you way MATH!!!
 */
 
 #include <iostream>
+#include <string> // allows for pop ups
 #include <cstdlib>
 #include <ctime>
-#include <thread>
-#include <chrono>
 using namespace std;
 
-void printMilestone(int level); // displays checkmarks like level 10, 20, 30 
+void printMilestone(int level); 
 int generateMathQuestion(int choice, int level, int aD, int mD, int sD, int dD); // Generates math question when called
 void printDirectionChoices(); // Display the list of actions
 bool gameRound(int choice, int aD, int mD, int sD, int dD); // each round of the game.
 string mainMenu();
 
+/*
+New Idea for the code. 
+Create a fuction that allows for an event chance; the main chance is heading to the next floor,
+other even could occur that will cause certain math problem to get way harder.
+However the next floor chance get bigger the longer a player is on a floor.
+*/
 
 int main()
 {
@@ -29,6 +34,7 @@ int main()
     int mD = 1; //multiplicationDifficulty
     int dD = 1; //divisionDifficulty
     cout << "Welcome to the Walking Upstairs Game!\n";
+    // Only go up a level after they pass the find stairs event to head to the next floor.
         while (true) {
             cout << "\nLevel " << level << ":\n";
     
@@ -38,8 +44,12 @@ int main()
             }
     
             // Increase difficulty after each level
+
             level++;
-            cout << "You've moved to the next to the next floor!\n";
+            if (level == 2){
+                printMilestone(level);
+            }
+
         }
     
     cout << "You made it to floor " << level - 1 << ".\n***GAME OVER***" ;
@@ -47,8 +57,11 @@ int main()
 
 }
 
-void printMilestone(){
-    
+void printMilestone(int level){
+    std::cout << "--------------------------------\n";
+    std::cout << "Congratulations! You've reached floor " << level << "!\n";
+    std::cout << "Prepare for the next math challenge...\n";
+    std::cout << "--------------------------------\n";
 }
 
 string mainMenu(){
