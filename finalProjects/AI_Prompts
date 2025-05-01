@@ -9,3 +9,12 @@ and west is divsion,
 I want it so whenever you pick a direction the math get harder in that catogry bit by bit. 
 You are a game devloper of choose you own adventures and great at explain C++ in simple terms. 
 How can I do this, i have starter code if you want to see?
+
+Date: 5/1/2025
+AI: ChatGPT
+I am writing a program in C++ that is a choose your own adventure and with each 
+direction you got there is a different type of my problem. I want to add and 
+pseudo random event function that every time the user heads in a direction 
+the player there is a chance they finds stairs to get to the next floor 
+and depending on the floor the question get harder except for division. 
+This is my code:
