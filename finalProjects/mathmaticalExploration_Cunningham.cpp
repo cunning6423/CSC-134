@@ -11,43 +11,94 @@ Explore the world free, however the only thing that blocks you way MATH!!!
 #include <ctime>
 using namespace std;
 
+//Displays milestone that congratulates the player
 void printMilestone(int level); 
-int generateMathQuestion(int choice, int level, int aD, int mD, int sD, int dD); // Generates math question when called
-void printDirectionChoices(); // Display the list of actions
-bool gameRound(int choice, int aD, int mD, int sD, int dD); // each round of the game.
+// Display the list of actions
+void printDirectionChoices();
+// Generates math question when called
+int generateMathQuestion(int choice, int level, int aD, int mD, int sD, int dD);  
+// Runs each round of the game.
+bool gameRound(int choice,int level ,int aD, int mD, int sD, int dD); 
+// Function that changes that randomizes events
+bool eventRound(int roundsOnFloor, bool &foundStairs, int &levelChange, int level);
+// Function that return the desired fail safe mode
+string printFailSafe();
 string mainMenu();
 
 /*
 New Idea for the code. 
-Create a fuction that allows for an event chance; the main chance is heading to the next floor,
-other even could occur that will cause certain math problem to get way harder.
 However the next floor chance get bigger the longer a player is on a floor.
+
+Event ideas: The events are fractional or decimal answer that will boost you or glich you to a lower floor but same diffculty questions.
+
+Create lore and a back ground page on the main menu
+
+More code ideas:
+Depending the direction the equation will get harder faster and their will be more of a reward.
+Can win more death saves or less questions until the next floor.
+If they answer more questions right then multiple time in a row the chance get higher.
 */
 
 int main()
 {
-    srand(time(0));  // Initialize random seed
-    int level = 1;  // Game starts at level 1
-    int choice; // the direction input variable
-    int aD = 1; //additionDifficulty
-    int sD = 1; //subtractionDifficulty
-    int mD = 1; //multiplicationDifficulty
-    int dD = 1; //divisionDifficulty
-    cout << "Welcome to the Walking Upstairs Game!\n";
-    // Only go up a level after they pass the find stairs event to head to the next floor.
+    srand(time(0));         // Initialize random seed
+    int level = 1;          // Game starts at level 1
+    int choice;             // The direction input variable
+    int aD = 1;             // Addition Difficulty
+    int sD = 1;             // Subtraction Difficulty
+    int mD = 1;             // Multiplication Difficulty
+    int dD = 1;             // Division Difficulty
+    int roundsOnFloor = 0;  // Amount of questions answered on that floor
+    int failSafes = 0;      // Amount of failsafes
+    string failSafeMode;    // Choosing the mode
+    
+    cout << "Welcome to Glitchuations!\n";
+    
+    failSafeMode = printFailSafe(); // Determines fail safe mode
+    if (failSafeMode == "basic" || failSafeMode == "always") {
+    failSafes = 3;
+    }
+
+    // Only go up a floor after the stairs are found.
         while (true) {
-            cout << "\nLevel " << level << ":\n";
+            cout << "\nFloor " << level << ":\n";
     
             // Run one round of the game
-            if (!gameRound(choice, aD, mD, sD, dD)) {
-                break; // If the player gets the question wrong, end the game
+            if (!gameRound(choice,level, aD, mD, sD, dD)) {
+                // Handle fail-safe
+                bool useFailSafe = false;
+            
+                if (failSafeMode == "basic" && failSafes > 0) {
+                    useFailSafe = true;
+                } else if (failSafeMode == "reverse" && level >= 5 && failSafes > 0) {
+                    useFailSafe = true;
+                } else if (failSafeMode == "always" && failSafes > 0) {
+                    useFailSafe = true;
+                }
+            
+                if (useFailSafe) {
+                    failSafes--;
+                    cout << "You used a fail-safe! You still continue. (" << failSafes << " left)\n";
+                } else {
+                    break; // No fail-safes or can't use them now
+                }
             }
-    
-            // Increase difficulty after each level
+            
+            // The stairs haven't been found
+            bool foundStairs = false;
+            // After the stairs have been found go up one floor.
+            int levelChange = 0;
+            // Random Event
+            eventRound(roundsOnFloor, foundStairs, levelChange, level);
 
-            level++;
-            if (level == 2){
+            //Check if stairs have been found
+            if (foundStairs || levelChange != 0) {
+                level += levelChange; // Head to the next floor
+                if (level < 1) level = 1;
                 printMilestone(level);
+                roundsOnFloor = 0;
+            } else {
+                roundsOnFloor++; // 
             }
 
         }
@@ -65,7 +116,7 @@ void printMilestone(int level){
 }
 
 string mainMenu(){
-return 0;
+
 }
 
 int generateMathQuestion(int choice, int aD, int sD, int mD, int dD) {
@@ -113,8 +164,25 @@ void printDirectionChoices() {
     cout << "4. West\n";
     cout << "5. Quit\n";
 }
+string printFailSafe() {
+    cout << "\nChoose your fail-safe mode:\n";
+    cout << "1. 3 at the beginning (basic)\n";
+    cout << "2. 3 only after floor 5 (reverse)\n";
+    cout << "3. Usable anytime (always)\n";
+    cout << "4. No fail-safes (none)\n";
+    int fmodeSelect;
+    cout <<"Enter mode: ";
+    cin >> fmodeSelect;
 
-bool gameRound(int choice, int aD, int mD, int sD, int dD) {
+    switch (fmodeSelect) {
+        case 1: return "basic";
+        case 2: return "reverse";
+        case 3: return "always";
+        default: return "none";
+    }
+}
+
+bool gameRound(int choice,int level, int aD, int mD, int sD, int dD) {
     // Show direction choices
     printDirectionChoices();
     
@@ -136,6 +204,9 @@ bool gameRound(int choice, int aD, int mD, int sD, int dD) {
             break;
         case 5: // Quit Screen
             break;
+        default: // input validation
+            cout << "Invalid Option...Try again" << endl;
+            gameRound(choice,level, aD, mD, sD, dD);
     }
     if(choice != 5) {
             // Generate math question for this round
@@ -151,10 +222,60 @@ bool gameRound(int choice, int aD, int mD, int sD, int dD) {
             cout << "\nIncorrect! The correct answer was " << correctAnswer << ".\n";
             return false;
         }
-        cout << "\nCorrect! You move " << (choice == 1 ? "North" : (choice == 2 ? "East" : (choice == 3 ? "South" : "West"))) << ".\n";
-        return true;
     }
     else if (choice == 5){
         cout <<"You have quit!\n" << endl;
+        return false;
     }
+
 }
+
+bool eventRound(int roundsOnFloor, bool &foundStairs, int &levelChange, int level){
+    int chance = rand() % 100;  // 0–99
+    int stairsChance = 10 + (roundsOnFloor * 5); // increases 5% per round on same floor
+
+    //Depending on floor the chance is more likely
+    if (level == 1){
+        stairsChance = 10 + (roundsOnFloor * 50); // increases 50% per round on same floor
+    }else if(level == 2){
+        stairsChance = 10 + (roundsOnFloor * 40); // increases 50% per round on same floor
+    }else if(level == 3){
+        stairsChance = 10 + (roundsOnFloor * 30); // increases 30% per round on same floor
+    }else if(level == 4){
+        stairsChance = 10 + (roundsOnFloor * 25); // increases 25% per round on same floor
+    }else if(level == 5){
+        stairsChance = 10 + (roundsOnFloor * 20); // increases 20% per round on same floor
+    }else if(level == 6){
+        stairsChance = 10 + (roundsOnFloor * 15); // increases 15% per round on same floor
+    }else if(level == 7){
+        stairsChance = 10 + (roundsOnFloor * 10); // increases 10% per round on same floor
+    }else if(level == 8){
+        stairsChance = 10 + (roundsOnFloor * 5); // increases 5% per round on same floor
+    }else if(level == 9){
+        stairsChance = 5 + (roundsOnFloor * 5); // increases 2.5% per round on same floor
+    }else{
+        stairsChance = 2 + (roundsOnFloor * 5); // increases 7ish% per round on same floor
+    }
+    
+
+    if (chance < stairsChance) {
+        foundStairs = true;
+        levelChange = 1;
+        cout << "\nYou found stairs to the next floor!\n";
+        return true;
+    }
+
+    if (chance < stairsChance - 5) {
+        levelChange = (rand() % 2 == 0) ? 1 : -1;
+        cout << "You stepped on a glitch tile! You " 
+             << (levelChange > 0 ? "boosted up" : "fell") 
+             << " a level.\n";
+        foundStairs = false;
+        return true;
+    }
+
+    foundStairs = false;
+    levelChange = 0;
+    return false;  // no event
+}
+
