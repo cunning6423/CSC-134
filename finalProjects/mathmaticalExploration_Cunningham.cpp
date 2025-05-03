@@ -75,7 +75,9 @@ int main()
                 } else if (failSafeMode == "always" && failSafes > 0) {
                     useFailSafe = true;
                 }
-            
+                if (!choice < 1 || !choice > 5 ){
+                    break;
+                }
                 if (useFailSafe) {
                     failSafes--;
                     cout << "You used a fail-safe! You still continue. (" << failSafes << " left)\n";
@@ -115,9 +117,7 @@ void printMilestone(int level){
     std::cout << "--------------------------------\n";
 }
 
-string mainMenu(){
-
-}
+string mainMenu(){return 0;}
 
 int generateMathQuestion(int choice, int aD, int sD, int mD, int dD) {
     int answer, a,b;
@@ -143,9 +143,15 @@ int generateMathQuestion(int choice, int aD, int sD, int mD, int dD) {
             break;
         case 4: // Division
             a = rand() % (dD * 10) + 1;  // Avoid division by zero
-            b = rand() % (dD * 5) + 1;  
-            answer = a / b;
-            cout << "What is " << a << " / " << b << "? (Rounded to nearest whole number) ";
+            b = rand() % (dD * 5) + 1;
+            if ( a > b)  {
+                answer = a / b;
+                cout << "What is " << a << " / " << b << "? (Rounded to nearest whole number) ";
+            }else{
+                answer = b / a;
+                cout << "What is " << b << " / " << a << "? (Rounded to nearest whole number) ";
+            }
+            
             break;
         default : {
             break;
@@ -206,8 +212,8 @@ bool gameRound(int choice,int level, int aD, int mD, int sD, int dD) {
             break;
         default: // input validation
             cout << "Invalid Option...Try again" << endl;
-            gameRound(choice,level, aD, mD, sD, dD);
-    }
+            break;
+        }
     if(choice != 5) {
             // Generate math question for this round
         int correctAnswer = generateMathQuestion(choice, aD, mD, sD, dD);
