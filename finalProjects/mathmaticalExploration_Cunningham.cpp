@@ -9,6 +9,7 @@ Explore the world free, however the only thing that blocks you way MATH!!!
 #include <string> // allows for pop ups
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 using namespace std;
 
 //Displays milestone that congratulates the player
@@ -18,7 +19,7 @@ void printDirectionChoices();
 // Generates math question when called
 int generateMathQuestion(int choice, int level, int aD, int mD, int sD, int dD);  
 // Runs each round of the game.
-bool gameRound(int choice,int level ,int aD, int mD, int sD, int dD); 
+bool gameRound(int choice,int level ,int aD, int mD, int sD, int dD, int &failSafes, string failSafeMode); 
 // Function that changes that randomizes events
 bool eventRound(int roundsOnFloor, bool &foundStairs, int &levelChange, int level);
 // Function that return the desired fail safe mode
@@ -64,26 +65,8 @@ int main()
             cout << "\nFloor " << level << ":\n";
     
             // Run one round of the game
-            if (!gameRound(choice,level, aD, mD, sD, dD)) {
-                // Handle fail-safe
-                bool useFailSafe = false;
-            
-                if (failSafeMode == "basic" && failSafes > 0) {
-                    useFailSafe = true;
-                } else if (failSafeMode == "reverse" && level >= 5 && failSafes > 0) {
-                    useFailSafe = true;
-                } else if (failSafeMode == "always" && failSafes > 0) {
-                    useFailSafe = true;
-                }
-                if (!choice < 1 || !choice > 5 ){
-                    break;
-                }
-                if (useFailSafe) {
-                    failSafes--;
-                    cout << "You used a fail-safe! You still continue. (" << failSafes << " left)\n";
-                } else {
-                    break; // No fail-safes or can't use them now
-                }
+            if (!gameRound(choice,level, aD, mD, sD, dD, failSafes, failSafeMode)) {
+                break;
             }
             
             // The stairs haven't been found
@@ -138,8 +121,13 @@ int generateMathQuestion(int choice, int aD, int sD, int mD, int dD) {
         case 3: // Subtraction
             a = rand() % (sD * 10);
             b = rand() % (sD * 10);
-            answer = (a > b) ? a - b : b - a;
-            cout << "What is " << max(a, b) << " - " << min(a, b) << "? ";
+            if ( a > b)  {
+                answer = a - b;
+                cout << "What is " << a << " - " << b << "? (Rounded to nearest whole number) ";
+            }else{
+                answer = b - a;
+                cout << "What is " << b << " - " << a << "? (Rounded to nearest whole number) ";
+            }
             break;
         case 4: // Division
             a = rand() % (dD * 10) + 1;  // Avoid division by zero
@@ -188,13 +176,22 @@ string printFailSafe() {
     }
 }
 
-bool gameRound(int choice,int level, int aD, int mD, int sD, int dD) {
+bool gameRound(int choice,int level, int aD, int mD, int sD, int dD, int &failSafes, string failSafeMode) {
     // Show direction choices
     printDirectionChoices();
     
     // Get player's direction choice
     cout << "Enter your choice (1-5): ";
     cin >> choice;
+
+    // Input validation for invalid choices
+    while (cin.fail() || choice < 1 || choice > 5) {
+        cin.clear(); // Clear the error flag
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+        cout << "Invalid input. Please enter a number between 1 and 5: ";
+        cin >> choice;
+    }
+
     switch(choice) {
         case 1: // North (Addition)
             aD++;
@@ -223,11 +220,30 @@ bool gameRound(int choice,int level, int aD, int mD, int sD, int dD) {
         cout << "Your answer: ";
         cin >> playerAnswer;
 
+        // Input validation for non-integer input
+        while (cin.fail()) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid input. Please enter a valid number for your answer: ";
+            cin >> playerAnswer;
+        }
+
         // Check if the answer is correct
         if (playerAnswer != correctAnswer) {
             cout << "\nIncorrect! The correct answer was " << correctAnswer << ".\n";
-            return false;
+            // Handle fail-safe based on the mode
+            if (failSafeMode == "none" || failSafes <= 0) {
+                return false;  // Game ends because no fail-safes and answer is wrong
+            } else {
+                // Use a fail-safe if available
+                if (failSafes > 0) {
+                    failSafes--;
+                    cout << "You used a fail-safe! You still continue. (" << failSafes << " left)\n";
+                    return true; // Continue the game
+                }
+            }
         }
+        return true;
     }
     else if (choice == 5){
         cout <<"You have quit!\n" << endl;
