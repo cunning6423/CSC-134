@@ -18,3 +18,14 @@ pseudo random event function that every time the user heads in a direction
 the player there is a chance they finds stairs to get to the next floor 
 and depending on the floor the question get harder except for division. 
 This is my code:
+
+Date: 5/12/2025
+I am creating a choose your adventure game that lets the player 
+choose a direction and have to answer certain math problem as a result. 
+I want to add the choose your own adventure portion of the code.
+
+the coding language is C++. And the lore is that you "Entered" a glitch tower 
+with a narrator that dictates what your goal is (To reach the top of the tower)
+and roast you if you pick failsafe mode always or fail safe mode none.
+Both failsafe have different random dialog. make the roasting like a 4th 
+wall breaker, i.e. sans, Deadpool. However, no cursing, no sexual jokes.
