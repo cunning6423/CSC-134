@@ -18,7 +18,7 @@ void printMilestone(int level);
 // Display the list of actions
 void printDirectionChoices();
 // Display and end screen
-void printEndScreen();
+void printEndScreen(int level);
 // Generates math question when called
 int generateMathQuestion(int choice, int level, int aD, int mD, int sD, int dD);  
 // Runs each round of the game.
@@ -94,7 +94,7 @@ int main()
         }
     
     cout << "\nYou made it to floor " << level << ".\n***GAME OVER***" <<endl;
-    printEndScreen();
+    printEndScreen(level);
     return 0;
 
 }
@@ -106,7 +106,7 @@ void printMilestone(int level){
     std::cout << "--------------------------------\n";
 }
 
-void printEndScreen();{
+void printEndScreen(int level){
     std::cout << "--------------------------------\n";
     std::cout << "Congratulations! You've reached floor " << level << "!\n";
     std::cout << "You have completed the challege...\n";
@@ -269,7 +269,6 @@ bool gameRound(int choice,int level, int aD, int mD, int sD, int dD, int &failSa
 bool eventRound(int roundsOnFloor, bool &foundStairs, int &levelChange, int level, int &failSafes){
     int chance = rand() % 100;  // 0–99
     int stairsChance = 10 + (roundsOnFloor * 5); // increases 5% per round on same floor
-
     //Depending on floor the chance is more likely
     if (!gameRound(choice,level, aD, mD, sD, dD, failSafes, failSafeMode)){
         if (level == 1){
