@@ -84,17 +84,20 @@ int main()
             //Check if stairs have been found
             if (foundStairs || levelChange != 0) {
                 level += levelChange; // Head to the next floor
-                if (level < 1) ;
+                if (level >= 1){
                 printMilestone(level);
+                }
+                else if (level == 10){
+                    printEndScreen(level);
+                }
                 roundsOnFloor = 0;
             } else {
-                roundsOnFloor++; // I just need this to sync code...
+                roundsOnFloor++; 
             }
 
         }
     
     cout << "\nYou made it to floor " << level << ".\n***GAME OVER***" <<endl;
-    printEndScreen(level);
     return 0;
 
 }
@@ -121,8 +124,8 @@ int generateMathQuestion(int choice, int aD, int sD, int mD, int dD) {
     //When the direction is pick a certain math equation is choosen
     switch (choice) {
         case 1: // Addition
-            a = rand() % (aD * 10);
-            b = rand() % (aD * 10);
+            a = rand() % (aD * 1);
+            b = rand() % (aD * 1);
             answer = a + b;
             cout << "What is " << a << " + " << b << "? ";
             break;

@@ -10,7 +10,7 @@ Explore the world free, however the only thing that blocks you way MATH!!!
 #include <cstdlib>
 #include <ctime>
 #include <limits>
-//#include "game_dialogue.h"
+#include "gameDialogue.h"
 using namespace std;
 
 //Displays milestone that congratulates the player
